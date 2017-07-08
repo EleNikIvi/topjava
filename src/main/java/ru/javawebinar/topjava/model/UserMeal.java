@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * GKislin
  * 11.01.2015.
  */
-public class UserMeal {
+public class UserMeal implements Comparable<UserMeal>{
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -29,5 +29,10 @@ public class UserMeal {
 
     public int getCalories() {
         return calories;
+    }
+
+    public int compareTo(UserMeal userMeal){
+        return this.getDateTime().isAfter(userMeal.getDateTime()) ? 1 :
+                this.getDateTime().isBefore(userMeal.getDateTime()) ? -1 : 0;
     }
 }
