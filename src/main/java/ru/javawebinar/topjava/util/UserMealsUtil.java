@@ -30,7 +30,6 @@ public class UserMealsUtil {
         for (int x = 0; x < mealList.size(); ) {
             final int a = x;
             long count = mealList.stream()
-                    .sorted()
                     .filter(s -> s.getDateTime().toLocalDate().isEqual(mealList.get(a).getDateTime().toLocalDate()))
                     .count();
             if (count == 0) {
