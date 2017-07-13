@@ -32,24 +32,21 @@ public class UserMealsUtil {
             long count = mealList.stream()
                     .filter(s -> s.getDateTime().toLocalDate().isEqual(mealList.get(a).getDateTime().toLocalDate()))
                     .count();
-            if (count == 0) {
-                ++x;
-                continue;
-            }
             int allCalories = mealList.stream().skip(a).limit(count)
                     .map(UserMeal::getCalories)
                     .reduce((s1, s2) -> s1 + s2)
                     .get();
-            final boolean exceeded = allCalories > caloriesPerDay;
+            final boolean exceeded = allCalories >= caloriesPerDay;
             mealList.stream().skip(a).limit(count)
-                    .filter(s -> s.getDateTime().toLocalTime().isAfter(startTime) && s.getDateTime().toLocalTime().isBefore(endTime))
+                    .filter(s -> TimeUtil.isBetween(s.getDateTime().toLocalTime(), startTime, endTime))
                     .forEach(s -> filteredMealWithExceedList.add(new UserMealWithExceed(s.getDateTime(),
                             s.getDescription(), s.getCalories(), exceeded)));
             x += count;
         }
+        for (UserMealWithExceed userMealWithExceed : filteredMealWithExceedList)
+            System.out.println(userMealWithExceed.toString());
         return filteredMealWithExceedList;
     }
-
 
 
 }
