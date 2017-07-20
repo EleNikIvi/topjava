@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <html>
 <head>
     <title>Meals</title>
@@ -19,11 +18,11 @@
     </tr>
     </thead>
     <c:forEach var="meal" items="${mealsList}">
-        <tr>
+        <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.MealWithExceed"/>
+        <tr class="${meal.exceed ? 'exceeded' : 'normal'}">
             <td>${meal.dateTime}</td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
-            <td>${meal.exceed}</td>
         </tr>
     </c:forEach>
 </table>
