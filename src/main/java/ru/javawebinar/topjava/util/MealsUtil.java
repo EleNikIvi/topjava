@@ -1,6 +1,9 @@
 package ru.javawebinar.topjava.util;
 
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.LocalDate;
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
 import static java.util.function.Function.identity;
 
 public class MealsUtil {
+    public static final User user = new User(AuthorizedUser.id(), "Some Name", "some e-mail", "some password", Role.ROLE_USER);
     public static final List<Meal> MEALS = Arrays.asList(
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500),
             new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000),
@@ -45,6 +49,7 @@ public class MealsUtil {
         return meals.stream()
                 .filter(meal -> DateTimeUtil.isBetween(meal.getTime(), startTime, endTime))
                 .map(meal -> createWithExceed(meal, caloriesSumByDate.get(meal.getDate()) > caloriesPerDay))
+                .sorted()
                 .collect(Collectors.toList());
     }
 

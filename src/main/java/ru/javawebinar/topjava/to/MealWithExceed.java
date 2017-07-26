@@ -2,7 +2,7 @@ package ru.javawebinar.topjava.to;
 
 import java.time.LocalDateTime;
 
-public class MealWithExceed {
+public class MealWithExceed  implements Comparable<MealWithExceed>{
     private final Integer id;
 
     private final LocalDateTime dateTime;
@@ -39,6 +39,10 @@ public class MealWithExceed {
 
     public boolean isExceed() {
         return exceed;
+    }
+
+    public int compareTo(MealWithExceed m){
+        return m.getDateTime().compareTo(getDateTime());
     }
 
     @Override

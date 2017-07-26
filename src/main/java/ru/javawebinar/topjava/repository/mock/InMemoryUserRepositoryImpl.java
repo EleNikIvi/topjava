@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +19,10 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     private static final Logger log = getLogger(InMemoryUserRepositoryImpl.class);
     private Map<Integer, User> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
+
+    {
+        save(MealsUtil.user);
+    }
 
     @Override
     public boolean delete(int id) {
