@@ -40,10 +40,13 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-
+        System.out.println("doGet " + action);
         switch (action == null ? "all" : action) {
             case "delete":
                 mealRestController.delete(request, response);
+                break;
+            case "filter":
+                mealRestController.getAllByFilter(request, response);
                 break;
             case "create":
             case "update":

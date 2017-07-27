@@ -13,20 +13,39 @@
         .exceeded {
             color: red;
         }
+        .wrapper{
+            display: flex;
+        }
     </style>
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
-    <h2>Meal list</h2>
-    <a href="meals?action=create">Add Meal</a>
+    <h3><a href="index.html">Подсчет калорий</a></h3>
+    <h2>Моя еда</h2>
+    <form action="meals?action=filter">
+        <input type="hidden" name="action" value="filter">
+        <div class="wrapper">
+            <div>От даты</div>
+            <div><input type="date" name="fromDate" id="fromDate"></div>
+            <div>От времени</div>
+            <div><input type="time" id="fromTime"></div>
+        </div>
+        <div class="wrapper">
+            <div>До даты</div>
+            <div><input type="date" id="toDate"></div>
+            <div>До времени</div>
+            <div><input type="time" id="toTime"></div>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+    <a href="meals?action=create">Добавить</a>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Calories</th>
+            <th>Дата/Время</th>
+            <th>Описание</th>
+            <th>Калории</th>
             <th></th>
             <th></th>
         </tr>

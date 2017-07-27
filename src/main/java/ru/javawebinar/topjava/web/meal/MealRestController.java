@@ -29,8 +29,6 @@ public class MealRestController {
         String action = request.getParameter("action");
         int userId = userController.get().getId();
         Integer mealId = "create".equals(action) ? null : getId(request);
-        System.out.println("actionWithMeal " + mealId);
-
         Meal meal = service.get(userId, mealId);
         request.setAttribute("meal", meal);
         request.getRequestDispatcher("/meal.jsp").forward(request, response);
@@ -41,7 +39,6 @@ public class MealRestController {
         String action = request.getParameter("action");
         Integer id = "create".equals(action) ? null : getId(request);;
         int userId = userController.get().getId();
-        System.out.println("saveMeal " + request.getParameter("action"));
         Meal meal = new Meal(id, LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
                 Integer.valueOf(request.getParameter("calories")));
@@ -63,6 +60,15 @@ public class MealRestController {
         int userId = userController.get().getId();
         log.info("Delete {}", mealId);
         service.delete(userId, mealId);
+        response.sendRedirect("meals");
+    }
+
+    public void getAllByFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String fromDate = request.getParameter("fromDate");
+        String toDate = request.getParameter("toDate");
+        String fromTime = request.getParameter("fromTime");
+        String toTime = request.getParameter("toTime");
+
         response.sendRedirect("meals");
     }
 
